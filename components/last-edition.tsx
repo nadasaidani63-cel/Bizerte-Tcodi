@@ -1,10 +1,39 @@
 "use client"
 
+import { useEffect, useRef, useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Trophy, Users, Clock, Star } from "lucide-react"
-import { useState, useEffect } from "react"
+
+function useScrollAnimation() {
+  const [isVisible, setIsVisible] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    if (ref.current) {
+      observer.observe(ref.current)
+    }
+
+    return () => observer.disconnect()
+  }, [])
+
+  return { ref, isVisible }
+}
 
 export function LastEdition() {
+  const titleAnimation = useScrollAnimation()
+  const galleryAnimation = useScrollAnimation()
+  const statsAnimation = useScrollAnimation()
+  const contentAnimation = useScrollAnimation()
+  
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
   const previousEditionImages = [
@@ -91,22 +120,22 @@ export function LastEdition() {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-6xl font-bold mb-4">
+        <div ref={titleAnimation.ref} className={`text-center mb-16 scroll-animate ${titleAnimation.isVisible ? 'animate' : ''}`}>
+          <h2 className="text-5xl md:text-6xl font-bold mb-4 title-hover animate-text-glow">
             Our{" "}
             <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
               Moments
             </span>
           </h2>
-          <p className="text-xl text-muted-foreground mb-12">
+          <p className="text-xl text-muted-foreground mb-12 animate-magic-shimmer">
             Discover moments from our events, workshops, and activities.
           </p>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-16">
+          <div ref={galleryAnimation.ref} className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-16 scroll-animate ${galleryAnimation.isVisible ? 'animate' : ''}`}>
             {previousEditionImages.map((image, index) => (
               <div
                 key={index}
-                className="group relative overflow-hidden rounded-2xl aspect-[4/3] animate-float hover:scale-105 transition-all duration-500"
+                className="group relative overflow-hidden rounded-2xl aspect-[4/3] animate-float hover:scale-105 transition-all duration-500 card-hover animate-magical-border"
                 style={{
                   animationDelay: `${index * 0.2}s`,
                   background: `linear-gradient(135deg, 
@@ -138,11 +167,11 @@ export function LastEdition() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div ref={statsAnimation.ref} className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 scroll-animate ${statsAnimation.isVisible ? 'animate' : ''}`}>
           {stats.map((stat, index) => (
             <Card
               key={index}
-              className="bg-card/50 backdrop-blur-sm border-border text-center animate-float"
+              className="bg-card/50 backdrop-blur-sm border-border text-center animate-float card-hover animate-magical-border"
               style={{ animationDelay: `${index * 0.2}s` }}
             >
               <CardContent className="p-6">
@@ -154,13 +183,13 @@ export function LastEdition() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div ref={contentAnimation.ref} className={`grid grid-cols-1 lg:grid-cols-2 gap-12 scroll-animate ${contentAnimation.isVisible ? 'animate' : ''}`}>
           <div>
-            <h3 className="text-2xl font-bold mb-6 text-secondary">Sonic Edition Memories</h3>
+            <h3 className="text-2xl font-bold mb-6 text-secondary title-hover animate-text-glow">Sonic Edition Memories</h3>
             <div className="space-y-4">
-              <Card className="bg-card/50 backdrop-blur-sm border-border">
+              <Card className="bg-card/50 backdrop-blur-sm border-border card-hover animate-magical-border">
                 <CardContent className="p-6">
-                  <h4 className="text-lg font-semibold mb-2 text-foreground">Record Participation</h4>
+                  <h4 className="text-lg font-semibold mb-2 text-foreground title-hover">Record Participation</h4>
                   <p className="text-muted-foreground">
                     Over 150 talented developers from across Tunisia participated in our inaugural event, making it one
                     of the largest coding competitions in the region.
@@ -168,9 +197,9 @@ export function LastEdition() {
                 </CardContent>
               </Card>
 
-              <Card className="bg-card/50 backdrop-blur-sm border-border">
+              <Card className="bg-card/50 backdrop-blur-sm border-border card-hover animate-magical-border">
                 <CardContent className="p-6">
-                  <h4 className="text-lg font-semibold mb-2 text-foreground">Innovative Solutions</h4>
+                  <h4 className="text-lg font-semibold mb-2 text-foreground title-hover">Innovative Solutions</h4>
                   <p className="text-muted-foreground">
                     Participants showcased incredible creativity and technical skills, solving complex algorithmic
                     challenges with elegant and efficient solutions.
@@ -178,9 +207,9 @@ export function LastEdition() {
                 </CardContent>
               </Card>
 
-              <Card className="bg-card/50 backdrop-blur-sm border-border">
+              <Card className="bg-card/50 backdrop-blur-sm border-border card-hover animate-magical-border">
                 <CardContent className="p-6">
-                  <h4 className="text-lg font-semibold mb-2 text-foreground">Community Building</h4>
+                  <h4 className="text-lg font-semibold mb-2 text-foreground title-hover">Community Building</h4>
                   <p className="text-muted-foreground">
                     The event fostered strong connections within the tech community, leading to ongoing collaborations
                     and mentorship opportunities.
@@ -191,11 +220,11 @@ export function LastEdition() {
           </div>
 
           <div>
-            <h3 className="text-2xl font-bold mb-6 text-secondary">What's New in 2.0</h3>
+            <h3 className="text-2xl font-bold mb-6 text-secondary title-hover animate-text-glow">What's New in 2.0</h3>
             <div className="space-y-4">
-              <Card className="bg-primary/10 border-primary/30 backdrop-blur-sm">
+              <Card className="bg-primary/10 border-primary/30 backdrop-blur-sm card-hover animate-magical-border">
                 <CardContent className="p-6">
-                  <h4 className="text-lg font-semibold mb-2 text-primary">Arcane Theme</h4>
+                  <h4 className="text-lg font-semibold mb-2 text-primary title-hover">Arcane Theme</h4>
                   <p className="text-muted-foreground">
                     This year's edition embraces the mystical world of Arcane, bringing a new level of excitement and
                     visual appeal to the competition.
@@ -203,9 +232,9 @@ export function LastEdition() {
                 </CardContent>
               </Card>
 
-              <Card className="bg-accent/10 border-accent/30 backdrop-blur-sm">
+              <Card className="bg-accent/10 border-accent/30 backdrop-blur-sm card-hover animate-magical-border">
                 <CardContent className="p-6">
-                  <h4 className="text-lg font-semibold mb-2 text-accent">Enhanced Experience</h4>
+                  <h4 className="text-lg font-semibold mb-2 text-accent title-hover">Enhanced Experience</h4>
                   <p className="text-muted-foreground">
                     Based on feedback from the first edition, we've improved the overall experience with better
                     facilities, more workshops, and extended networking opportunities.
@@ -213,9 +242,9 @@ export function LastEdition() {
                 </CardContent>
               </Card>
 
-              <Card className="bg-secondary/10 border-secondary/30 backdrop-blur-sm">
+              <Card className="bg-secondary/10 border-secondary/30 backdrop-blur-sm card-hover animate-magical-border">
                 <CardContent className="p-6">
-                  <h4 className="text-lg font-semibold mb-2 text-secondary">Bigger Prizes</h4>
+                  <h4 className="text-lg font-semibold mb-2 text-secondary title-hover">Bigger Prizes</h4>
                   <p className="text-muted-foreground">
                     We've increased the prize pool and added more categories to recognize outstanding achievements in
                     different areas of problem-solving.

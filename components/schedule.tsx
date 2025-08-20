@@ -1,6 +1,37 @@
+"use client"
+
+import { useEffect, useRef, useState } from "react"
 import { Clock, Coffee, Trophy, Users, Code, Gamepad2 } from "lucide-react"
 
+function useScrollAnimation() {
+  const [isVisible, setIsVisible] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    if (ref.current) {
+      observer.observe(ref.current)
+    }
+
+    return () => observer.disconnect()
+  }, [])
+
+  return { ref, isVisible }
+}
+
 export function Schedule() {
+  const titleAnimation = useScrollAnimation()
+  const scheduleAnimation = useScrollAnimation()
+  const daysAnimation = useScrollAnimation()
+
   const scheduleItems = [
     { time: "12:00", event: "Check-in", icon: Users, type: "arrival" },
     { time: "12:30", event: "Opening Ceremony", icon: Trophy, type: "ceremony" },
@@ -73,17 +104,17 @@ export function Schedule() {
       </div>
 
       <div className="max-w-4xl mx-auto relative">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-300 via-blue-200 to-blue-400 bg-clip-text text-transparent">
+        <div ref={titleAnimation.ref} className={`text-center mb-12 scroll-animate ${titleAnimation.isVisible ? 'animate' : ''}`}>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-300 via-blue-200 to-blue-400 bg-clip-text text-transparent title-hover animate-text-glow">
             Event Roadmap
           </h2>
-          <p className="text-blue-200/80 text-xl">Your 24-hour coding journey</p>
+          <p className="text-blue-200/80 text-xl animate-magic-shimmer">Your 24-hour coding journey</p>
         </div>
 
-        <div className="relative h-[600px] md:h-[700px]">
+        <div ref={scheduleAnimation.ref} className={`relative h-[600px] md:h-[700px] scroll-animate ${scheduleAnimation.isVisible ? 'animate' : ''}`}>
           {/* Center hub */}
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
-            <div className="w-24 h-24 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center shadow-2xl border-4 border-secondary/50">
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 animate-scale-in">
+            <div className="w-24 h-24 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center shadow-2xl border-4 border-secondary/50 animate-glow animate-magical-border">
               <div className="text-center">
                 <Trophy className="w-8 h-8 text-primary-foreground mx-auto mb-1" />
                 <div className="text-xs font-bold text-primary-foreground">TCODI</div>
@@ -91,9 +122,9 @@ export function Schedule() {
               </div>
             </div>
             {/* Pulsing rings around center */}
-            <div className="absolute inset-0 rounded-full border-2 border-accent/30 animate-ping"></div>
+            <div className="absolute inset-0 rounded-full border-2 border-accent/30 animate-ping animate-magical-border"></div>
             <div
-              className="absolute inset-0 rounded-full border border-secondary/20 animate-pulse"
+              className="absolute inset-0 rounded-full border border-secondary/20 animate-pulse animate-magical-border"
               style={{ animationDelay: "1s" }}
             ></div>
           </div>
@@ -144,12 +175,12 @@ export function Schedule() {
               >
                 {/* Event marker */}
                 <div
-                  className={`w-16 h-16 rounded-full bg-gradient-to-br ${colorClass} flex items-center justify-center shadow-xl border-3 border-card-foreground/20 hover:scale-110 transition-all duration-300 cursor-pointer relative z-10`}
+                  className={`w-16 h-16 rounded-full bg-gradient-to-br ${colorClass} flex items-center justify-center shadow-xl border-3 border-card-foreground/20 hover:scale-110 transition-all duration-300 cursor-pointer relative z-10 animate-magical-border card-hover`}
                 >
                   <item.icon className="w-6 h-6 text-primary-foreground" />
 
                   {/* Glowing ring effect */}
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-accent/20 to-primary/20 animate-pulse"></div>
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-accent/20 to-primary/20 animate-pulse animate-glow"></div>
                 </div>
 
                 {/* Event details tooltip */}
@@ -167,11 +198,11 @@ export function Schedule() {
         </div>
 
         {/* Day indicators */}
-        <div className="flex justify-center gap-6 mt-8">
-          <div className="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-6 py-3 rounded-full text-base font-bold shadow-lg hover:scale-105 transition-transform duration-300">
+        <div ref={daysAnimation.ref} className={`flex justify-center gap-6 mt-8 scroll-animate ${daysAnimation.isVisible ? 'animate' : ''}`}>
+          <div className="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-6 py-3 rounded-full text-base font-bold shadow-lg hover:scale-105 transition-transform duration-300 card-hover animate-magical-border">
             Day 1 - September 20
           </div>
-          <div className="bg-gradient-to-r from-blue-500 to-blue-400 text-white px-6 py-3 rounded-full text-base font-bold shadow-lg hover:scale-105 transition-transform duration-300">
+          <div className="bg-gradient-to-r from-blue-500 to-blue-400 text-white px-6 py-3 rounded-full text-base font-bold shadow-lg hover:scale-105 transition-transform duration-300 card-hover animate-magical-border">
             Day 2 - September 21
           </div>
         </div>
