@@ -45,7 +45,7 @@ export function Location() {
           <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent title-hover animate-text-glow">
             Event Location
           </h2>
-          <p className="text-xl text-muted-foreground animate-magic-shimmer">
+          <p className="text-xl text-muted-foreground">
             Join us at ISET Bizerte University for an unforgettable experience
           </p>
         </div>

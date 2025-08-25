@@ -70,7 +70,7 @@ export function About() {
           <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent title-hover animate-text-glow">
             About Bizerte Tcodi 2.0
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed animate-magic-shimmer">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Welcome to the second edition of Bizerte Tcodi, now with an Arcane theme! This premier problem-solving
             competition brings together the brightest minds from across the region for an intense 7-hour coding
             challenge.

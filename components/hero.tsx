@@ -84,7 +84,7 @@ export function Hero() {
             <p className="text-2xl md:text-3xl text-yellow-400 font-bold mb-3 animate-glow animate-text-glow title-hover cursor-default">
               Forge the Future - One Line of Code at a Time
             </p>
-            <p className="text-xl md:text-2xl text-accent font-semibold mb-6 title-hover cursor-default animate-magic-shimmer">
+            <p className="text-xl md:text-2xl text-accent font-semibold mb-6 title-hover cursor-default">
               ARCANE EDITION
             </p>
           </div>

@@ -108,7 +108,7 @@ export function Schedule() {
           <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-300 via-blue-200 to-blue-400 bg-clip-text text-transparent title-hover animate-text-glow">
             Event Roadmap
           </h2>
-          <p className="text-blue-200/80 text-xl animate-magic-shimmer">Your 24-hour coding journey</p>
+          <p className="text-blue-200/80 text-xl">Your 24-hour coding journey</p>
         </div>
 
         <div ref={scheduleAnimation.ref} className={`relative h-[600px] md:h-[700px] scroll-animate ${scheduleAnimation.isVisible ? 'animate' : ''}`}>
