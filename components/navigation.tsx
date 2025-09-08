@@ -70,7 +70,7 @@ export function Navigation() {
                 size="sm"
                 className="bg-gradient-to-r from-primary to-accent text-primary-foreground hover:scale-105 transition-transform duration-300 animate-glow"
               >
-                Register Soon
+                Register
               </Button>
             </div>
 
@@ -103,7 +103,7 @@ export function Navigation() {
                 size="sm"
                 className="w-full bg-gradient-to-r from-primary to-accent text-primary-foreground mt-4"
               >
-                Register Soon
+                Register
               </Button>
             </div>
           </div>

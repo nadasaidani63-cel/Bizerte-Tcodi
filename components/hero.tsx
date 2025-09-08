@@ -115,15 +115,21 @@ export function Hero() {
           <div className={`flex flex-col sm:flex-row gap-3 justify-center transition-all duration-1000 ${
             isVisible ? 'animate-slide-right' : 'opacity-0 translate-x-10'
           }`} style={{ animationDelay: "0.6s" }}>
-            <Button
-              size="default"
-              className="text-base px-6 py-3 bg-yellow-400 text-black hover:bg-yellow-500 animate-glow card-hover animate-magical-border relative overflow-hidden"
-              style={{ fontSize: "20px" }}
+            <a
+              href="https://forms.gle/1LJgPrdLgYwt2vgG8"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <span className="relative z-10">
-              Registeration soon
-              </span>
-            </Button>
+              <Button
+                size="default"
+                className="text-base px-6 py-3 bg-yellow-400 text-black hover:bg-yellow-500 animate-glow card-hover animate-magical-border relative overflow-hidden"
+                style={{ fontSize: "20px" }}
+              >
+                <span className="relative z-10">
+                Register
+                </span>
+              </Button>
+            </a>
             <a
               href="https://www.facebook.com/profile.php?id=61557634144817"
               target="_blank"
