@@ -46,9 +46,6 @@ export function Navigation() {
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center animate-glow">
-                <span className="text-primary-foreground font-bold text-sm">TC</span>
-              </div>
               <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent title-hover">
                 Bizerte Tcodi 2.0
               </span>
